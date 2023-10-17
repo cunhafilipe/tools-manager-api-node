@@ -10,4 +10,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model user {
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
+  name  String?
+  password String
+  }
+
+model tools {
+  id        Int     @default(autoincrement()) @id
+  title     String
+  link   String
+  description   String
+  tags tags[]
+}
+
+model tags {
+  id        Int     @default(autoincrement()) @id
+  title     String
+  tools     tools   @relation(fields: [tools_id], references: [id])
+  tools_id   Int
+}
 

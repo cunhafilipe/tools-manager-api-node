@@ -9,7 +9,9 @@
     "test": "jest --passWithNoTests",
     "test:unit": "jest --passWithNoTests --watch",
     "test:staged": "jest --passWithNoTests",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --skip-seed",
+    "prisma:migrate:reset": "prisma migrate reset"
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",
