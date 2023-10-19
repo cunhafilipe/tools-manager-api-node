@@ -10,7 +10,6 @@ export class RedisCacheRepository {
   async get(key: string): Promise<string | null> {
     const client = await redisConnectionClient()
     const value = await client.get(key)
-    console.log(value)
     return value
   }
 }
