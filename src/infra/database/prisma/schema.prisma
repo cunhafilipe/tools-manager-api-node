@@ -11,24 +11,23 @@ datasource db {
 }
 
 model user {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
   password String
-  }
+}
 
 model tools {
-  id        Int     @default(autoincrement()) @id
-  title     String
-  link   String
-  description   String
-  tags tags[]
+  id          Int    @id @default(autoincrement())
+  title       String
+  link        String
+  description String
+  tags        tags[]
 }
 
 model tags {
-  id        Int     @default(autoincrement()) @id
-  title     String
-  tools     tools   @relation(fields: [tools_id], references: [id])
-  tools_id   Int
+  id       Int    @id @default(autoincrement())
+  title    String
+  tools    tools  @relation(fields: [tools_id], references: [id], onDelete: Cascade)
+  tools_id Int
 }
-
