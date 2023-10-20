@@ -6,7 +6,7 @@ describe('app :: usecase :: tools :: delete-tools', () => {
   let deleteToolUseCase: IDeleteToolsUseCase
 
   const toolsRepositoryMock = {
-    findBy: jest.fn().mockReturnValue(null),
+    findBy: jest.fn(),
     deleteById: jest.fn()
   } as any
   const cacheRepositoryMock = {
@@ -18,7 +18,14 @@ describe('app :: usecase :: tools :: delete-tools', () => {
     deleteToolUseCase = new DeleteToolsUseCase(toolsRepositoryMock, cacheRepositoryMock)
   })
 
-  it('Shoud delete a tool use case', async () => {
+  it('Should delete a tool', async () => {
+    jest.spyOn(toolsRepositoryMock, 'findBy').mockReturnValue({
+      id: '1',
+      title: 'title-here',
+      link: 'link-here',
+      description: 'description-here',
+      tags: [],
+    })
     await deleteToolUseCase.execute(1)
     expect(toolsRepositoryMock.findBy).toHaveBeenCalledWith({ id: 1 })
   })
