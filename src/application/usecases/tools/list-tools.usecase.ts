@@ -9,12 +9,12 @@ export class ListToolsUseCase implements IListToolsUseCase {
     ) { }
 
     async execute(): Promise<ListToolsUseCaseResponse[]> {
+
         const cache = await this.cacheRepository.get('tools')
 
-        if (cache && cache.length) {
+        if (cache && JSON.parse(cache).length) {
             return JSON.parse(cache)
         }
-
         const listTools = await this.toolsRepository.list()
         const tools = listTools.map((tool) => {
             const tags: string[] = []
@@ -29,7 +29,6 @@ export class ListToolsUseCase implements IListToolsUseCase {
                 tags
             }
         })
-
         await this.cacheRepository.set('tools', JSON.stringify(tools))
 
         return tools
